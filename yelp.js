@@ -50,8 +50,9 @@ var getRestaurants = function(keyword, restaurants) {
         console.log("current array length: ");
         console.log(restaurants().length);
       },
-      fail: function(data){
-        console.log("failed to fetch API data, please try again");
+      error: function(data){
+        $("#searchbar").prepend("<div class='warning'> unable to fetch result</div>");
+
       }
     });
 
@@ -117,7 +118,7 @@ var initInfoWindows = function(restaurants) {
       }
       e.marker.setAnimation(google.maps.Animation.BOUNCE);
       //stop the Animation after a while
-      setTimeout(function(){e.marker.setAnimation(null);}, 3000);
+      setTimeout(function(){e.marker.setAnimation(null);}, 1400);
 
       currentAnimationMarker = e.marker;
       e.infowindow.open(map,e.marker);
@@ -127,6 +128,10 @@ var initInfoWindows = function(restaurants) {
 };
 
 var setRestaurants = function (businesses,restaurants) {
+  if(businesses==undefined|restaurants==undefined)
+        $("#searchbar").prepend("<div class='warning'> unable to fetch result</div>");
+  else
+  {  
   for (var n = 0; n <businesses.length; n++){
     restaurants.push({title:businesses[n].name,
                       id:businesses[n].id,
@@ -138,5 +143,9 @@ var setRestaurants = function (businesses,restaurants) {
                       marker:undefined
                     }
                   );
-  }
+  }}
 };
+
+  var mapError = function(){
+    alert("fail to load the Google Map Component");
+  };

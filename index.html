@@ -6,33 +6,37 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css.css">
+    <link rel="stylesheet" href="css.css">
 
   </head>
   <body>
+    <nav>
     <div id="searchbar">
-      <h3>Food Choice Near Santa Clara university</h3>
-      <input type="text" data-bind="value: keyword" placeholder="Type in a food u want">
-      <button data-bind="click: getfood">Filter</button>
-      <div><ul id="result" data-bind="foreach: myrestaurants">
+      <h3><span data-bind="text: foodchoice"></span> Near Santa Clara university</h3>
+      <input type="text" data-bind="textInput: keyword" placeholder="Type in a keyword">
+      <button class="searchB"data-bind="click: getfood">Lucky Button</button>
+
+      <div><ul id="result" data-bind="foreach: restaurants">
 
         <li><span data-bind="text: title, click: $root.selectMarker"></span></li>
     </div>
   </div>
+</nav>
     <div id="map"></div>
 
 
-    <script async defer
-     src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAO_A3eA4F6A5_XjL9nyPWo1kQLP6LYerw&callback=initMap">
-    </script>
-    <!-- <script type="text/javascript" src="app.js"></script> -->
-    <script type="text/javascript" src="knockout.js"></script>
-    <script type="text/javascript" src="oauth-signature.min.js"></script>
-    <script type="text/javascript" src="hmac-sha1.js"></script>
-    <script type="text/javascript" src="jquery.min.js"></script>
-    <script type="text/javascript" src="yelp.js"></script>
-    <script async defer type="text/javascript" src="app.js"></script>
 
+    
+    <!-- <script type="text/javascript" src="app.js"></script> -->
+    <script src="knockout.js"></script>
+    <script src="oauth-signature.min.js"></script>
+    <script src="hmac-sha1.js"></script>
+    <script src="jquery.min.js"></script>
+    <script src="yelp.js"></script>
+    <script src="app.js"></script>
+    <script async defer
+     src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAO_A3eA4F6A5_XjL9nyPWo1kQLP6LYerw&callback=initMap" onerror="mapError()">
+    </script>
 
 
   </body>

@@ -1,18 +1,47 @@
 function AppViewModel(){
   var self = this;
-  self.keyword = "";
+  self.keyword = ko.observable();
   self.myrestaurants = ko.observableArray();
-  // for(var n=0;n<restaurants.length;n++){
-  //   self.myrestaurants.push(
-  //     {title:restaurants[n].title,
-  //     location: {latitude:restaurants[n].location.coordinate.latitude, longitude:restaurants[n].location.coordinate.longitude},
-  //     id: restaurants[n].id});
-  // }
+  getRestaurants('food', self.myrestaurants);
+
+  self.foodchoice = ko.observable("Food");
+  self.foodlist = ko.observableArray(["Sushi","Hotpot","Pho","Hamburger","Pizza","Seafood","Fastfood","BBQ"]);
+  self.restaurants = ko.computed(function(){
+    if(!self.keyword()&&self.myrestaurants()){
+      self.myrestaurants().forEach(function(e){
+        e.marker.setVisible(true);
+      });
+      return self.myrestaurants();
+    }
+    else if (self.myrestaurants()){
+      var temArray = ko.observableArray();
+      self.myrestaurants().forEach(function(e){
+      if(e.title.toLowerCase().indexOf(self.keyword().toLowerCase()) >= 0) 
+      {   e.marker.setVisible(true);
+          temArray().push(e);
+      }
+      else
+      {
+          e.marker.setVisible(false);
+      }
+        });
+    return temArray();
+    }
+   
+  }, this);
+
+
   self.getfood = function(){
+    var randomNum = Math.round(self.foodlist().length * Math.random())-1;
     clearMarkers(self.myrestaurants);
     self.myrestaurants.removeAll();
-    getRestaurants(self.keyword, self.myrestaurants);
+    getRestaurants(self.foodlist()[randomNum], self.myrestaurants);
+    console.log(self.foodlist()[randomNum]);
+    self.foodchoice(self.foodlist()[randomNum]);
   };
+  //randomly select food choice and fetch data of that food chocie
+
+
   console.log("initial array"+ self.myrestaurants());
   console.log(self.myrestaurants());
 
@@ -36,5 +65,4 @@ function AppViewModel(){
   };
 
 }
-
  ko.applyBindings(new AppViewModel());
