@@ -7,20 +7,23 @@ function AppViewModel(){
   self.foodchoice = ko.observable("Food");
   self.foodlist = ko.observableArray(["Sushi","Hotpot","Pho","Hamburger","Pizza","Seafood","Fastfood","BBQ"]);
   self.restaurants = ko.computed(function(){
-    if(!self.keyword()&&self.myrestaurants()){
+    if(!self.keyword()){
       self.myrestaurants().forEach(function(e){
-        e.marker.setVisible(true);
+        if(e.marker){
+            e.marker.setVisible(true);
+          }
       });
       return self.myrestaurants();
     }
     else if (self.myrestaurants()){
+      if(currentInfoWindow){currentInfoWindow.close();}
       var temArray = ko.observableArray();
       self.myrestaurants().forEach(function(e){
-      if(e.title.toLowerCase().indexOf(self.keyword().toLowerCase()) >= 0) 
+      if(e.title.toLowerCase().indexOf(self.keyword().toLowerCase()) >= 0&&e.marker) 
       {   e.marker.setVisible(true);
           temArray().push(e);
       }
-      else
+      else if (e.marker)
       {
           e.marker.setVisible(false);
       }
