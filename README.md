@@ -1,3 +1,6 @@
+##Important
+Since Yelp v2.0 API is no longer available, this site is currently closed.
+
 ##Introduciton 
 This is a web application that helps you to locate restaurants by using API from Yelp.
 

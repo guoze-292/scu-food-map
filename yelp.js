@@ -10,7 +10,7 @@ var getRestaurants = function(keyword, restaurants) {
     };
 
   var urls = {
-      search : "https://api.yelp.com/v2/search",
+      search : "https://api.yelp.com/v3/businesses/search",
       businesses : "https://api.yelp.com/v2/business/{id}"
     };
   var terms = keyword;
